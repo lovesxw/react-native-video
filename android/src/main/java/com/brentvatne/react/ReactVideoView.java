@@ -3,6 +3,7 @@ package com.brentvatne.react;
 import android.content.res.AssetFileDescriptor;
 import android.media.MediaPlayer;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Handler;
 import android.util.Log;
 import android.view.MotionEvent;
@@ -176,6 +177,12 @@ public class ReactVideoView extends ScalableVideoView implements MediaPlayer.OnP
     }
 
     public void setSrc(final String uriString, final String type, final boolean isNetwork, final boolean isAsset, final int expansionMainVersion, final int expansionPatchVersion) {
+
+        if(Build.VERSION.SDK_INT >=  Build.VERSION_CODES.JELLY_BEAN){
+            mSrcUriString = uriString.replace("file://","");
+        }else{
+            mSrcUriString = uriString;
+        }
 
         mSrcUriString = uriString;
         mSrcType = type;
